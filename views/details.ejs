@@ -118,6 +118,7 @@
         <ul class="reviews-list">
           <%for(review of listing.reviews){%>
           <li>
+             <span><strong>Author:@</strong> <%= review.author.username %></span>
             <span><strong>Comment:</strong> <%= review.comment %></span>
             <span><strong>Rating:</strong> <%= review.rating %> Star</span>
             <span><strong>Created at:</strong> <%= review.created_at %></span>

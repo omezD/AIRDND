@@ -1,3 +1,4 @@
+
 const express = require("express");
 const router = express.Router();
 
@@ -5,17 +6,17 @@ const wrapAsync = require("../utils/wrapAsync.js");
 const { listingSchema, reviewSchema } = require("../schema.js");
 const ExpressError = require("../utils/ExpressError.js");
 const Listing = require("../models/listing.js");
-const { isLoggedIn } = require("../middleware.js");
+const {isOwner, isLoggedIn , validateListing} = require("../middleware.js");
 
-//MW= joi , server site validation apply, made a function an dapply in the api call
-const validateListing = (req, res, next) => {
-  let { error } = listingSchema.validate(req.body);
-  if (error) {
-    throw new ExpressError(4040, error.details[0].message);
-  } else {
-    next();
-  }
-};
+
+console.log(
+  typeof isLoggedIn,
+  typeof validateListing,
+  typeof isOwner
+);
+
+
+
 //all listing routes
 
 //index route . showing all the properties and hotels
@@ -54,7 +55,9 @@ router.get(
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     let listing = await Listing.findById(id)
-      .populate("reviews")
+      .populate({path:"reviews", populate:{
+        path:"author"
+      }})
       .populate("owner");
     if (!listing) {
       req.flash("error", "listing you requested, not exist");
@@ -80,6 +83,7 @@ router.get(
 router.patch(
   "/:id",
   isLoggedIn,
+  isOwner,
 
   wrapAsync(async (req, res) => {
     const { id } = req.params;
@@ -93,11 +97,7 @@ router.patch(
       filename: "listingimage",
       url: listing.image,
     };
-       let clisting =await Listing.findById(id); 
-    if(!clisting.owner.equals(res.locals.currUser._id)){
-      req.flash("error", "you dont have permisiion to edit bro"); 
-     return  res.redirect(`/listings/${id}`);
-    }
+    
 
     await Listing.findByIdAndUpdate(id, listing, {
       runValidators: true,
@@ -120,4 +120,7 @@ router.delete(
   })
 );
 
+
 module.exports = router;
+
+

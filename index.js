@@ -75,16 +75,6 @@ app.use((req, res, next)=>{
   next();
 })
 
-// app.use("/demouser", async (req, res)=>{
-//   let fakeUser=new User({
-//     email:"student@gmail.com",
-//     username:"delta-student"
-//   })
-
-//   let registeredUser=await User.register(fakeUser, "helloworld");//registeredUser, password
-//   res.send(registeredUser);
-// })
-
 //all the routes
 //for the whole listings routes, just write the one line
 app.use("/listings", listingRouter);
