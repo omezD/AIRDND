@@ -8,10 +8,9 @@ const path = require("path");
 const ExpressError = require("./utils/ExpressError.js");
 const session = require("express-session");
 const flash = require("connect-flash");
-const passport=require("passport");
-const LocalStrategy=require("passport-local");
-const User=require("./models/user.js");
-
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
+const User = require("./models/user.js");
 
 const sessionOptions = {
   secret: "mysupersecret",
@@ -23,8 +22,6 @@ const sessionOptions = {
     httpOnly: true, //to prevent cross scripting attack
   },
 };
-
-
 
 const port = 3000;
 const listingRouter = require("./routes/listing.js");
@@ -50,10 +47,6 @@ main()
 async function main() {
   await mongoose.connect(MONGO_URL);
 }
-app.get("/", (req, res) => {
-  res.send("hey bro its working");
-});
-
 
 app.use(session(sessionOptions));
 app.use(flash());
@@ -61,19 +54,22 @@ app.use(flash());
 //use of passport
 app.use(passport.initialize());
 app.use(passport.session());
-passport.use(new LocalStrategy(User.authenticate()))
+passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-
 //for creating and passing flash MW
-app.use((req, res, next)=>{
-  res.locals.success=req.flash("success");
-    res.locals.error=req.flash("error");
-      res.locals.currUser=req.user;
-    
+app.use((req, res, next) => {
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
+  res.locals.currUser = req.user;
+
   next();
-})
+});
+app.get("/", (req, res) => {
+  console.log("started my web-app");
+  res.render("landing.ejs");
+});
 
 //all the routes
 //for the whole listings routes, just write the one line

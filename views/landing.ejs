@@ -1,0 +1,91 @@
+<% layout("layouts/boilerplate") -%>
+
+<!-- HERO SECTION -->
+<header class="hero-section">
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content">
+    <span class="hero-badge">🌍 Wanderlust</span>
+    <h1>Travel. Stay. Belong.</h1>
+    <p>
+      Discover unique places, trusted hosts, and unforgettable stays
+      — all in one platform.
+    </p>
+    <div class="hero-actions">
+      <a href="/listings" class="primary-btn">Explore Listings</a>
+      <% if (!currUser) { %>
+        <a href="/signup" class="secondary-btn">Join Now</a>
+      <% } %>
+    </div>
+  </div>
+</header>
+
+
+<!-- FEATURES -->
+<section class="features-section">
+  <h2>Why Wanderlust?</h2>
+  <p class="section-subtitle">Everything you need for a safe & smooth stay</p>
+
+  <div class="features-grid">
+    <div class="feature-box">
+      <h3>🔐 Secure Authentication</h3>
+      <p>Login & signup powered by secure Passport authentication.</p>
+    </div>
+
+    <div class="feature-box">
+      <h3>🏡 Owner-Verified Listings</h3>
+      <p>Only listing owners can edit or delete their properties.</p>
+    </div>
+
+    <div class="feature-box">
+      <h3>⭐ Trusted Reviews</h3>
+      <p>Only authenticated users can post and delete their own reviews.</p>
+    </div>
+
+    <div class="feature-box">
+      <h3>⚡ Fast & Simple UI</h3>
+      <p>Clean interface focused on usability and speed.</p>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="experience-section">
+  <div class="experience-text">
+    <h2>Built for travelers & hosts</h2>
+    <p>
+      Wanderlust is designed to give travelers confidence
+      and hosts complete control — without complexity.
+    </p>
+    <a href="/listings" class="primary-btn">Start Your Journey</a>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonial-section">
+  <h2>Loved by users</h2>
+
+  <div class="testimonial-grid">
+    <div class="testimonial-card">
+      <p>“Clean UI and very easy to use. Loved the experience!”</p>
+      <span>— Arjun, Kolkata</span>
+    </div>
+
+    <div class="testimonial-card">
+      <p>“Posting and managing listings feels super smooth.”</p>
+      <span>— Sneha, Bangalore</span>
+    </div>
+
+    <div class="testimonial-card">
+      <p>“Feels like a real product, not just a college project.”</p>
+      <span>— Rohit, Delhi</span>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="cta-section">
+  <h2>Ready to explore?</h2>
+  <p>Your next stay is just a click away.</p>
+  <a href="/listings" class="primary-btn">Browse Listings</a>
+</section>
