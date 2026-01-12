@@ -328,3 +328,61 @@ body {
   padding: 80px 20px;
   text-align: center;
 }
+
+.ai-container {
+  max-width: 700px;
+  margin: 40px auto;
+  background: #fff;
+  padding: 30px;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.chat-box {
+  height: 350px;
+  overflow-y: auto;
+  background: #f7f7f7;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.user-msg {
+  text-align: right;
+  background: #ff385c;
+  color: white;
+  padding: 10px 14px;
+  border-radius: 20px;
+  margin: 8px 0;
+  display: inline-block;
+  max-width: 80%;
+}
+
+.bot-msg {
+  background: white;
+  padding: 10px 14px;
+  border-radius: 20px;
+  margin: 8px 0;
+  display: inline-block;
+  max-width: 80%;
+}
+
+#aiForm {
+  display: flex;
+  gap: 10px;
+}
+
+#aiForm input {
+  flex: 1;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+#aiForm button {
+  background: #ff385c;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+}

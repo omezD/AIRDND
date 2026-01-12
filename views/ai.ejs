@@ -1,0 +1,47 @@
+<% layout("layouts/boilerplate") -%>
+
+<div class="ai-container">
+  <h2>✈️ Wanderlust AI Travel Assistant</h2>
+  <p>Ask me anything about travel, destinations, stays, or planning.</p>
+
+  <div class="chat-box" id="chatBox">
+    <div class="bot-msg">
+      👋 Hi! Ask me anything about travel.
+    </div>
+  </div>
+
+  <form id="aiForm">
+    <input
+      type="text"
+      id="question"
+      placeholder="Ask about travel..."
+      required
+    />
+    <button type="submit">Ask</button>
+  </form>
+</div>
+
+<script>
+  const form = document.getElementById("aiForm");
+  const chatBox = document.getElementById("chatBox");
+  const questionInput = document.getElementById("question");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const question = questionInput.value;
+
+    chatBox.innerHTML += `<div class="user-msg">${question}</div>`;
+    questionInput.value = "";
+
+    const res = await fetch("/ai/ask", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ question }),
+    });
+
+    const data = await res.json();
+
+    chatBox.innerHTML += `<div class="bot-msg">${data.answer}</div>`;
+    chatBox.scrollTop = chatBox.scrollHeight;
+  });
+</script>

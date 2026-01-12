@@ -1,4 +1,6 @@
 //this is my new first major project of the 2025
+require("dotenv").config();
+
 const express = require("express");
 const app = express();
 const methodOverride = require("method-override");
@@ -11,6 +13,7 @@ const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
+const aiRouter = require("./routes/ai.js");
 
 const sessionOptions = {
   secret: "mysupersecret",
@@ -31,6 +34,8 @@ const userRouter = require("./routes/user.js");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
@@ -50,6 +55,9 @@ async function main() {
 
 app.use(session(sessionOptions));
 app.use(flash());
+
+console.log("Gemini key:", process.env.GEMINI_API_KEY);
+
 
 //use of passport
 app.use(passport.initialize());
@@ -79,11 +87,15 @@ app.use("/listings/:id/review", reviewRouter);
 app.use("/", userRouter);
 
 //MW= joi , server site validation apply, made a function an dapply in the api call
+app.use("/ai", aiRouter);
 
 app.all(/.*/, (req, res, next) => {
   //for all
   next(new ExpressError(404, "page not found bro"));
 });
+
+
+
 
 //eror handling MW
 app.use((err, req, res, next) => {
