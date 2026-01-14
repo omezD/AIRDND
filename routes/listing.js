@@ -35,20 +35,30 @@ router.get("/new", isLoggedIn, (req, res) => {
 });
 
 //creating route for the new listing
-//creating route for the new listing
+// creating route for the new listing
 router.post(
   "/",
   isLoggedIn,
   validateListing,
-  wrapAsync(async (req, res, next) => {
-    let listing = req.body.listing;
-    let newListing = new Listing(listing); //making an instance
-    newListing.owner=req.user._id;//to add the owner 
+  wrapAsync(async (req, res) => {
+    let listingData = req.body.listing;
+
+    // 🔥 FIX: convert image string → object
+    listingData.image = {
+      filename: "listingimage",
+      url: listingData.image
+    };
+
+    let newListing = new Listing(listingData);
+    newListing.owner = req.user._id;
+
     await newListing.save();
-    req.flash("success", "new listing created");
+
+    req.flash("success", "New listing created");
     res.redirect("/listings");
   })
 );
+
 
 //Show routes of perticular listings by his id, details route
 router.get(
