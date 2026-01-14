@@ -35,6 +35,7 @@ router.get("/new", isLoggedIn, (req, res) => {
 });
 
 //creating route for the new listing
+//creating route for the new listing
 router.post(
   "/",
   isLoggedIn,
